@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input" 
 import { Link } from "react-router"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -77,10 +77,7 @@ export function RegisterForm({
                                         <FormLabel>Name</FormLabel>
                                         <FormControl>
                                             <Input placeholder="Mr.jon" {...field} className="my-1"/>
-                                        </FormControl>
-                                        <FormDescription className="sr-only">
-                                            This is your public display name.
-                                        </FormDescription>
+                                        </FormControl> 
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -93,10 +90,7 @@ export function RegisterForm({
                                         <FormLabel>Email</FormLabel>
                                         <FormControl>
                                             <Input type="email" placeholder="jon@gmail.com" {...field} className="my-1"/>
-                                        </FormControl>
-                                        <FormDescription className="sr-only">
-                                            This is your public display name.
-                                        </FormDescription>
+                                        </FormControl> 
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -108,12 +102,8 @@ export function RegisterForm({
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
                                         <FormControl>
-                                            <Password {...field}></Password>
-                                            {/* <Input type="password" placeholder="********" {...field} className="my-1"/> */}
-                                        </FormControl>
-                                        <FormDescription className="sr-only">
-                                            This is your public display name.
-                                        </FormDescription>
+                                            <Password {...field}></Password> 
+                                        </FormControl> 
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -125,12 +115,8 @@ export function RegisterForm({
                                     <FormItem>
                                         <FormLabel>Confirm Password</FormLabel>
                                         <FormControl>
-                                            <Password {...field}></Password>
-                                            {/* <Input type="password" placeholder="********" {...field} className="my-1"/> */}
-                                        </FormControl>
-                                        <FormDescription className="sr-only">
-                                            This is your public display name.
-                                        </FormDescription>
+                                            <Password {...field}></Password> 
+                                        </FormControl> 
                                         <FormMessage />
                                     </FormItem>
                                 )}

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input" 
 import { Link } from "react-router"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
+import { Form, FormControl,FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -71,10 +71,7 @@ export function LoginForm({
                                         <FormLabel>Email</FormLabel>
                                         <FormControl>
                                             <Input type="email" placeholder="jon@gmail.com" {...field} className="my-1"/>
-                                        </FormControl>
-                                        <FormDescription className="sr-only">
-                                            This is your public display name.
-                                        </FormDescription>
+                                        </FormControl> 
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -88,15 +85,12 @@ export function LoginForm({
                                         <FormControl>
                                             <Password {...field}></Password>
                                             {/* <Input type="password" placeholder="********" {...field} className="my-1"/> */}
-                                        </FormControl>
-                                        <FormDescription className="sr-only">
-                                            This is your public display name.
-                                        </FormDescription>
+                                        </FormControl> 
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             /> 
-                            <Button type="submit" className="w-full">Register</Button>
+                            <Button type="submit" className="w-full">Login</Button>
                         </form>
                     </Form>
                     <div>
