@@ -8,14 +8,18 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Input } from "@/components/ui/input" 
-import { Link } from "react-router"
+import { Input } from "@/components/ui/input"
+import { Link, useLocation, useNavigate } from "react-router"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Logo from "@/assets/icons/Logo"
 import Password from "../ui/Password"
+import { useRegisterMutation } from "@/redux/features/auth/auth.api"
+import toast from "react-hot-toast"
+import type { LocationState } from "@/types"
+import { config } from "@/config"
 
 
 
@@ -31,10 +35,16 @@ const registerSchema = z.object({
 });
 
 
+
 export function RegisterForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
+
+    const [register] = useRegisterMutation()
+    const navigate = useNavigate()
+    const location = useLocation() as { state?: LocationState };
+    const redirectPath = location.state?.from || "/";
 
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
@@ -46,8 +56,23 @@ export function RegisterForm({
         }
     })
 
-    const onSubmit = (data: z.infer<typeof registerSchema>) => {
-        console.log(data);
+    const onSubmit = async (data: z.infer<typeof registerSchema>) => {
+
+        const toastId = toast.loading("account creating...")
+        const userInfo = {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+        }
+        try {
+            const result = await register(userInfo).unwrap();
+            if (result.success) {
+                toast.success("User created successfully", { id: toastId });
+                navigate(redirectPath)
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 
@@ -76,8 +101,8 @@ export function RegisterForm({
                                     <FormItem>
                                         <FormLabel>Name</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Mr.jon" {...field} className="my-1"/>
-                                        </FormControl> 
+                                            <Input placeholder="Mr.jon" {...field} className="my-1" />
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -89,8 +114,8 @@ export function RegisterForm({
                                     <FormItem>
                                         <FormLabel>Email</FormLabel>
                                         <FormControl>
-                                            <Input type="email" placeholder="jon@gmail.com" {...field} className="my-1"/>
-                                        </FormControl> 
+                                            <Input type="email" placeholder="jon@gmail.com" {...field} className="my-1" />
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -102,8 +127,8 @@ export function RegisterForm({
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
                                         <FormControl>
-                                            <Password {...field}></Password> 
-                                        </FormControl> 
+                                            <Password {...field}></Password>
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -115,8 +140,8 @@ export function RegisterForm({
                                     <FormItem>
                                         <FormLabel>Confirm Password</FormLabel>
                                         <FormControl>
-                                            <Password {...field}></Password> 
-                                        </FormControl> 
+                                            <Password {...field}></Password>
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
@@ -125,7 +150,8 @@ export function RegisterForm({
                         </form>
                     </Form>
                     <div>
-                        <Button variant="outline" className="w-full mt-5">
+                        <Button onClick={() => window.location.assign(`${config.baseUrl}/auth/google`)}
+                            type="button" variant="outline" className="w-full mt-5">
                             Login with Google
                         </Button>
                     </div>
