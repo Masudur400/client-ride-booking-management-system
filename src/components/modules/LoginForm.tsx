@@ -10,15 +10,14 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Link, useLocation, useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Logo from "@/assets/icons/Logo"
 import Password from "../ui/Password"
-import { useLoginMutation } from "@/redux/features/auth/auth.api"
-import type { LocationState } from "@/types"
+import { useLoginMutation } from "@/redux/features/auth/auth.api" 
 import toast from "react-hot-toast"
 import { config } from "@/config"
 
@@ -37,9 +36,7 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
 
     const [login] = useLoginMutation()
-    const navigate = useNavigate()
-    const location = useLocation() as { state?: LocationState };
-    const redirectPath = location.state?.from || "/";
+    const navigate = useNavigate() 
 
     const form = useForm<z.infer<typeof loginSchema>>({
         resolver: zodResolver(loginSchema),
@@ -59,8 +56,7 @@ export function LoginForm({
             const result = await login(userInfo).unwrap();
             if (result.success) {
                 toast.success("Login successfully", { id: toastId });
-                navigate(redirectPath)
-                //  <Navigate to="/login" state={{ from: location.pathname }} replace /> it will be use withAuth
+                 navigate('/') 
             }
         } catch (error: any) {
             if (error.data.message === "Password does not match") {

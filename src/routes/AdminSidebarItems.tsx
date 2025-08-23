@@ -1,16 +1,14 @@
- 
- 
- 
-import DriveOversight from "@/pages/admin/driveOversight";
-import RideOversight from "@/pages/admin/rideOversight";
-import UserManagement from "@/pages/admin/userManagement";
-import ProfileManagement from "@/pages/profileManagement";
+import AnalyticsDashboard from "@/pages/admin/AnalyticsDashboard";
+import DriveOversight from "@/pages/admin/DriveOversight";
+import RideOversight from "@/pages/admin/RideOversight";
+import UserManagement from "@/pages/admin/UserManagement";
+import ProfileManagement from "@/pages/ProfileManagement";
 import type { ISidebarItem } from "@/types";
-import { lazy } from "react";
+// import { lazy } from "react";
 
 
 
-const AnalyticsDashboard = lazy(() => import("@/pages/admin/analyticsDashboard"))
+// const AnalyticsDashboard = lazy(() => import("@/pages/admin/AnalyticsDashboard"))
 
 export const adminSidebarItems: ISidebarItem[] = [
   {

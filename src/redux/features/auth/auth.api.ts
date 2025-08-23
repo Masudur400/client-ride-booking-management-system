@@ -6,33 +6,42 @@ const authApi = baseApi.injectEndpoints({
         register: builder.mutation({
             query: (userInfo) => ({
                 url: '/user/register',
-                method:'POST',
-                data:userInfo
+                method: 'POST',
+                data: userInfo
             })
         }),
         login: builder.mutation({
             query: (userInfo) => ({
                 url: '/auth/login',
-                method:'POST',
-                data:userInfo
+                method: 'POST',
+                data: userInfo
             })
         }),
-        userInfo:builder.query({
-            query:()=>({
-                url:'/user/me',
-                method:'GET'
+        logOut: builder.mutation({
+            query: () => ({
+                url: '/auth/logout',
+                method: 'POST'
             }),
-            providesTags:['USER']
+            invalidatesTags: ['USER']
         }),
-        logOut:builder.mutation({
-            query:()=>({
-                url:'/auth/logout',
-                method:'POST'
+        userInfo: builder.query({
+            query: () => ({
+                url: '/user/me',
+                method: 'GET'
             }),
-            invalidatesTags:['USER']
+            providesTags: ['USER']
+        }),
+        updateInfo: builder.mutation({
+            query: ( {id, updatedData} ) => ({
+                url: `/user/${id}`,
+                method: "PATCH",
+                data: updatedData,
+            }),
+            invalidatesTags: ["USER"],
         })
 
-         
+
+
     })
 })
 
@@ -42,4 +51,5 @@ export const {
     useLoginMutation,
     useUserInfoQuery,
     useLogOutMutation,
+    useUpdateInfoMutation,
 } = authApi

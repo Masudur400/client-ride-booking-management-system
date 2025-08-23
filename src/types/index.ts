@@ -1,8 +1,6 @@
 import type { ComponentType } from "react";
 
-export type LocationState = {
-  from?: string;
-};
+
 
 export interface ISidebarItem {
   title: string;
@@ -12,3 +10,6 @@ export interface ISidebarItem {
     component: ComponentType;
   }[];
 }
+
+
+export type TRole = "SUPER_ADMIN" | "ADMIN" | "USER" | "RIDER" | "DRIVER" 
