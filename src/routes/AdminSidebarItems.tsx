@@ -1,5 +1,6 @@
 import AnalyticsDashboard from "@/pages/admin/AnalyticsDashboard";
 import DriveOversight from "@/pages/admin/DriveOversight";
+import ManageRoleApplies from "@/pages/admin/ManageRoleApplies";
 import RideOversight from "@/pages/admin/RideOversight";
 import UserManagement from "@/pages/admin/UserManagement";
 import ProfileManagement from "@/pages/ProfileManagement";
@@ -38,6 +39,11 @@ export const adminSidebarItems: ISidebarItem[] = [
         title: "User Management",
         url: "/admin/user-management",
         component: UserManagement
+      }, 
+      {
+        title: "Manage Role Applies",
+        url: "/admin/manage-role-applies",
+        component: ManageRoleApplies
       }, 
       {
         title: "Profile",

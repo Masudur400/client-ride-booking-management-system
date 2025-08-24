@@ -19,7 +19,7 @@ export const riderSidebarItems: ISidebarItem[] = [
     title: "Management",
     items: [
       {
-        title: "Add rider Post",
+        title: "Add Rider Post",
         url: "/rider/add-post",
         component: AddRiderPost
       },

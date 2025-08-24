@@ -47,12 +47,12 @@ export function LoginForm({
     })
 
     const onSubmit = async (data: z.infer<typeof loginSchema>) => {
-        const toastId = toast.loading("login...")
         const userInfo = {
             email: data.email,
             password: data.password,
         }
         try {
+            const toastId = toast.loading("login...")
             const result = await login(userInfo).unwrap();
             if (result.success) {
                 toast.success("Login successfully", { id: toastId });

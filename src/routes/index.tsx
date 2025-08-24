@@ -12,7 +12,7 @@ import { riderSidebarItems } from "./RiderSidebarItems";
 import { userSidebarItems } from "./UserSidebarItems";
 import { withAuth } from "@/utils/withAuth";
 import { Role } from "@/constants/role";
-import type { TRole } from "@/types";
+import type { TRole } from "@/types";  
 
 export const router = createBrowserRouter([
     {
@@ -26,12 +26,12 @@ export const router = createBrowserRouter([
             {
                 path: 'about',
                 Component: About
-            },
+            }, 
         ]
     },
     // admin dashboard routes
     {
-        Component: withAuth( DashboardLayOut, Role.SUPER_ADMIN as TRole),
+        Component: withAuth(DashboardLayOut, Role.SUPER_ADMIN as TRole),
         path: '/admin',
 
         children: [
@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
     },
     // driver dashboard router 
     {
-        Component: withAuth( DashboardLayOut, Role.DRIVER as TRole),
+        Component: withAuth(DashboardLayOut, Role.DRIVER as TRole),
         path: '/driver',
         children: [
             { index: true, element: <Navigate to="/driver/earning-dashboard" /> },
@@ -50,7 +50,7 @@ export const router = createBrowserRouter([
     },
     // rider dashboard router 
     {
-        Component:withAuth( DashboardLayOut, Role.RIDER as TRole),
+        Component: withAuth(DashboardLayOut, Role.RIDER as TRole),
         path: '/rider',
         children: [
             { index: true, element: <Navigate to="/rider/earning-dashboard" /> },
@@ -59,7 +59,7 @@ export const router = createBrowserRouter([
     },
     // user dashboard router 
     {
-        Component: withAuth( DashboardLayOut, Role.USER as TRole),
+        Component: withAuth(DashboardLayOut, Role.USER as TRole),
         path: '/user',
         children: [
             { index: true, element: <Navigate to="/user/bookings" /> },

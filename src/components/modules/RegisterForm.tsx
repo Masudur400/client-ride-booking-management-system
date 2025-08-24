@@ -9,7 +9,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Link, useLocation, useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -17,8 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import Logo from "@/assets/icons/Logo"
 import Password from "../ui/Password"
 import { useRegisterMutation } from "@/redux/features/auth/auth.api"
-import toast from "react-hot-toast"
-import type { LocationState } from "@/types"
+import toast from "react-hot-toast" 
 import { config } from "@/config"
 
 
@@ -42,9 +41,7 @@ export function RegisterForm({
 }: React.ComponentProps<"div">) {
 
     const [register] = useRegisterMutation()
-    const navigate = useNavigate()
-    const location = useLocation() as { state?: LocationState };
-    const redirectPath = location.state?.from || "/";
+    const navigate = useNavigate() 
 
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
@@ -68,7 +65,7 @@ export function RegisterForm({
             const result = await register(userInfo).unwrap();
             if (result.success) {
                 toast.success("User created successfully", { id: toastId });
-                navigate(redirectPath)
+                navigate('/login')
             }
         } catch (error) {
             console.log(error);

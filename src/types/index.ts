@@ -11,5 +11,20 @@ export interface ISidebarItem {
   }[];
 }
 
+export interface IRider {
+  _id: string
+  title: string
+  from: string
+  to: string
+  riderId: string
+  riderName: string
+  riderEmail: string
+  amount: number
+  postStatus: string
+  available: boolean
+  createdAt: string
+  updatedAt: string
+}
+
 
 export type TRole = "SUPER_ADMIN" | "ADMIN" | "USER" | "RIDER" | "DRIVER" 

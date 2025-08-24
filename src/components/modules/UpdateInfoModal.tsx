@@ -40,8 +40,8 @@ export function UpdateInfoModal() {
         resolver: zodResolver(updateInfoSchema),
         defaultValues: {
             name: user?.name || "",
-            // phone: user?.phone || "",
-            // address: user?.address || "",
+            phone: user?.phone || "",
+            address: user?.address || "",
         },
     }) 
     

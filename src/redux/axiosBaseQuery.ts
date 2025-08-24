@@ -21,7 +21,7 @@ const axiosBaseQuery =
       const result = await axiosInstance({
         url: url,
         method,
-        data,
+        data, 
         params,
         headers,
       });  
