@@ -1,3 +1,4 @@
+ 
 import { baseApi } from "@/redux/baseApi"
 
 
@@ -15,10 +16,10 @@ const rideApi = baseApi.injectEndpoints({
         getMyRiderPost: builder.query({
             query: ({ page, limit }) => ({
                 url: `/rider/my-posts?page=${page}&limit=${limit}`,
-                method: 'GET', 
+                method: 'GET',
             }),
             providesTags: ['RIDER'],
-        }),
+        }), 
         removeRider: builder.mutation({
             query: (id) => ({
                 url: `/rider/delete/${id}`,
@@ -44,5 +45,5 @@ const rideApi = baseApi.injectEndpoints({
 export const {
     useCreateRideMutation,
     useGetMyRiderPostQuery,
-    useRemoveRiderMutation,
+    useRemoveRiderMutation, 
 } = rideApi

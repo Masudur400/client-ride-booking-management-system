@@ -84,7 +84,7 @@ export function SendRoleRequestModal() {
                                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                                         <FormControl className="w-full">
                                             <SelectTrigger>
-                                                <SelectValue placeholder="Select a verified email to display" />
+                                                <SelectValue placeholder="Select Role" />
                                             </SelectTrigger>
                                         </FormControl>
                                         <SelectContent>

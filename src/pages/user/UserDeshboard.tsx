@@ -1,60 +1,56 @@
+import { useGetUserDashboardStatsQuery } from '@/redux/features/dashboard/dashboard.api';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"; 
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
-import Loading from "../Loadin";
-import { TbCurrencyTaka } from "react-icons/tb";
-import { useGetDriverDashboardStatsQuery } from "@/redux/features/dashboard/dashboard.api";
+import Loading from '../Loadin';
 
-const EarningsDriverDashboard = () => {
-
-    const { data, isLoading } = useGetDriverDashboardStatsQuery(undefined);
-        const stats = data?.data;
-    
-    
-    
-        const totalBookings= stats?.totalBookings
-        const completedBookings= stats?.completedBookings
-        const pendingBookings= stats?.pendingBookings
-        const cancelledBookings= stats?.cancelledBookings
-        const totalEarnings= stats?.totalEarnings
-
-        const chartData = [
-        { name: "Completed", value: completedBookings },
+const UserDeshboard = () => {
+    const { data, isLoading } = useGetUserDashboardStatsQuery(undefined);
+    const dashBoardData = data?.data
+    const totalBookings = dashBoardData?.totalBookings
+    const completedBookings = dashBoardData?.completedBookings
+    const pendingBookings = dashBoardData?.pendingBookings
+    const cancelledBookings = dashBoardData?.cancelledBookings
+    const chartData = [
+        { name: "Completed", value: totalBookings },
         { name: "Pending", value: pendingBookings },
-        { name: "Cancelled", value: cancelledBookings },
+        { name: "Cancelled", value: cancelledBookings }, 
     ];
 
-    if (isLoading) {
+    if(isLoading){
         return <Loading></Loading>
     }
-
 
     return (
         <div className="space-y-6 p-4">
             {/* Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <Card>
-                    <CardHeader><CardTitle>Total Bookings</CardTitle></CardHeader>
+                    <CardHeader>
+                        <CardTitle>Total Bookings</CardTitle>
+                    </CardHeader>
                     <CardContent className="text-2xl font-bold">{totalBookings}</CardContent>
                 </Card>
                 <Card>
-                    <CardHeader><CardTitle>Completed</CardTitle></CardHeader>
+                    <CardHeader>
+                        <CardTitle>Completed</CardTitle>
+                    </CardHeader>
                     <CardContent className="text-2xl font-bold text-green-600">{completedBookings}</CardContent>
                 </Card>
                 <Card>
-                    <CardHeader><CardTitle>Pending</CardTitle></CardHeader>
+                    <CardHeader>
+                        <CardTitle>Pending</CardTitle>
+                    </CardHeader>
                     <CardContent className="text-2xl font-bold text-yellow-600">{pendingBookings}</CardContent>
                 </Card>
                 <Card>
-                    <CardHeader><CardTitle>Cancelled</CardTitle></CardHeader>
+                    <CardHeader>
+                        <CardTitle>Cancelled</CardTitle>
+                    </CardHeader>
                     <CardContent className="text-2xl font-bold text-red-600">{cancelledBookings}</CardContent>
                 </Card>
-                <Card>
-                    <CardHeader><CardTitle>Total Earnings</CardTitle></CardHeader>
-                    <CardContent className="text-2xl font-bold text-purple-600 flex items-center">{totalEarnings || 0}<TbCurrencyTaka className="text-[27px]" /></CardContent>
-                </Card>
+
             </div>
 
-            {/* Line Chart */}
             <Card>
                 <CardHeader>
                     <CardTitle>Booking Status Overview</CardTitle>
@@ -72,8 +68,9 @@ const EarningsDriverDashboard = () => {
                     </ResponsiveContainer>
                 </CardContent>
             </Card>
+
         </div>
     );
 };
 
-export default EarningsDriverDashboard;
+export default UserDeshboard;

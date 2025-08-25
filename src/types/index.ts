@@ -27,4 +27,23 @@ export interface IRider {
 }
 
 
+export interface IBooking {
+  _id: string
+  title:string
+  from: string
+  to: string
+  amount: number
+  postId: string
+  transporterId: string
+  transporterName: string
+  transporterEmail: string
+  bookerId: string
+  bookerName: string
+  bookerEmail: string
+  bookingStatus: string
+  createdAt: string
+  updatedAt: string
+}
+
+
 export type TRole = "SUPER_ADMIN" | "ADMIN" | "USER" | "RIDER" | "DRIVER" 

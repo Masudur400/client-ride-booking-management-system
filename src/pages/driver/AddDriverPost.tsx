@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,8 +11,12 @@ import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import Logo from "@/assets/icons/Logo" 
+import Logo from "@/assets/icons/Logo"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+ 
+import toast from "react-hot-toast" 
+import { useCreateDriverMutation } from "@/redux/features/drive/driver.api"
+import DriverTable from "./DriverTable"
 
 
 
@@ -29,37 +34,129 @@ export function AddDriverPost({
     ...props
 }: React.ComponentProps<"div">) {
 
-    // const [login] = useLoginMutation()
-    // const navigate = useNavigate() 
+    const [createDriver] = useCreateDriverMutation()
+
 
     const form = useForm<z.infer<typeof addPostSchema>>({
         resolver: zodResolver(addPostSchema),
         defaultValues: {
-            "title": "Office Commuting to Motijheel",
-            "from": "Uttara",
-            "to": "Motijheel",
-            "amount": 250
+            title: '',
+            from: '',
+            to: '',
+            amount: 0
+
+            // "title": "Office Commuting to Motijheel",
+            // "from": "Uttara",
+            // "to": "Motijheel",
+            // "amount": 250
+
+
+
+            // "title": "Ride to University Campus",
+            // "from": "Dhanmondi",
+            // "to": "Mirpur",
+            // "amount": 200
+
+
+
+            // "title": "Visit to Doctor's Chamber",
+            // "from": "Bashundhara",
+            // "to": "Gulshan",
+            // "amount": 180
+
+
+
+            // "title": "Weekend Shopping Ride",
+            // "from": "Banani",
+            // "to": "New Market",
+            // "amount": 150
+
+
+
+            // "title": "Quick Business Errand",
+            // "from": "Farmgate",
+            // "to": "Shyamoli",
+            // "amount": 170
+
+
+
+            // "title": "Family Visit to Baridhara",
+            // "from": "Mohakhali",
+            // "to": "Baridhara",
+            // "amount": 220
+
+            // "title": "Morning Office Drop",
+            // "from": "Mirpur 10",
+            // "to": "Kawran Bazar",
+            // "amount": 200
+
+            // "title": "Evening Ride to Airport",
+            // "from": "Gulshan",
+            // "to": "Hazrat Shahjalal Airport",
+            // "amount": 300
+
+            // "title": "Ride to Coaching Center",
+            // "from": "Rampura",
+            // "to": "Malibagh",
+            // "amount": 120
+
+            // "title": "Visiting Relatives",
+            // "from": "Shantinagar",
+            // "to": "Khilgaon",
+            // "amount": 140
+
+            // "title": "Daily Market Trip",
+            // "from": "Mohammadpur",
+            // "to": "Karwan Bazar",
+            // "amount": 160
+
+            // "title": "University Ride",
+            // "from": "Jatrabari",
+            // "to": "Dhanmondi",
+            // "amount": 220
+
+            // "title": "Office Commuting Evening",
+            // "from": "Banani",
+            // "to": "Motijheel",
+            // "amount": 260
+
+            // "title": "Shopping at Bashundhara City",
+            // "from": "Mohakhali",
+            // "to": "Panthapath",
+            // "amount": 150
+
+            // "title": "Ride to Old Dhaka",
+            // "from": "Farmgate",
+            // "to": "Chawk Bazar",
+            // "amount": 200
+
+            // "title": "Night Ride Home",
+            // "from": "New Market",
+            // "to": "Mirpur 2",
+            // "amount": 180
+
+
         }
     })
 
     const onSubmit = async (data: z.infer<typeof addPostSchema>) => {
-        console.log(data);
-        // const toastId = toast.loading("login...")
-        // const postData = {
-
-        // }
-        // try {
-        //     // const result = await login(userInfo).unwrap();
-        //     if (result.success) {
-        //         toast.success("Login successfully", { id: toastId });
-
-        //     }
-        // } catch (error: any) {
-        //     if (error.data.message === "Password does not match") {
-        //         toast.error("Invalid credentials");
-        //     }
-        //     console.log(error);
-        // }
+        const createData = {
+            title: data.title,
+            from: data.from,
+            to: data.to,
+            amount: data.amount
+        }
+        try {
+            const result = await createDriver(createData).unwrap();
+            if (result.success) {
+                toast.success("post created successfully");
+            }
+        } catch (error: any) {
+            if (error) {
+                toast.error("failed to create post");
+            }
+            console.log(error);
+        }
     }
 
 
@@ -110,7 +207,7 @@ export function AddDriverPost({
                                 name="to"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>From</FormLabel>
+                                        <FormLabel>To</FormLabel>
                                         <FormControl>
                                             <Input placeholder="To" {...field} className="my-1" />
                                         </FormControl>
@@ -123,9 +220,9 @@ export function AddDriverPost({
                                 name="amount"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>From</FormLabel>
+                                        <FormLabel>amount</FormLabel>
                                         <FormControl>
-                                            <Input type="number" placeholder="Amount" {...field} className="my-1" />
+                                            <Input type="number" placeholder="Amount" {...field} onChange={(e) => field.onChange(e.target.valueAsNumber)} className="my-1" />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -136,6 +233,12 @@ export function AddDriverPost({
                     </Form>
                 </CardContent>
             </Card>
+
+
+           <DriverTable></DriverTable>
+
+
+
         </div>
     )
 }

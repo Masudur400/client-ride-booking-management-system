@@ -19,7 +19,7 @@ const ProfileManagement = () => {
     const { data, isLoading } = useUserInfoQuery(undefined)
     const user = data?.data
     const { data: mySendRequest, isLoading: requestLoading } = useMySendRequestQuery(undefined)
-    const myRequest = mySendRequest?.data[0]
+    const myRequest = mySendRequest?.data[0] 
     const [cancelRequest] = useCancelRequestMutation()
     if (isLoading || requestLoading) {
         return <Loading></Loading>
@@ -31,8 +31,10 @@ const ProfileManagement = () => {
             if(result.data.success){
                 toast.success('Application cancelled successfully')
             } 
-        } catch (error) {
-            console.log(error);
+        } catch (error : any) {
+            if(error){
+                toast.error(error?.data?.message)
+            }
         }
     }
 
@@ -42,28 +44,16 @@ const ProfileManagement = () => {
             <div className='md:flex items-center gap-10'>
                 <Avatar name={user?.name?.charAt(0)} src={'preview'} alt='img' size="300" className='rounded-full' />
                 <div className='space-y-2'>
-                    <p>
+                    <p className='flex items-center gap-1'>
+                        <p>
                         <span className="font-medium">Name : </span>
                         {user?.name}
+                    </p>  <UpdateInfoModal></UpdateInfoModal>
                     </p>
                     <p>
                         <span className="font-medium">Email : </span>
                         {user?.email}
-                    </p>
-                    {
-                        user?.phone &&
-                        <p>
-                            <span className="font-medium">Email : </span>
-                            {user?.phone}
-                        </p>
-                    }
-                    {
-                        user?.address &&
-                        <p>
-                            <span className="font-medium">Email : </span>
-                            {user?.address}
-                        </p>
-                    }
+                    </p> 
                     {
                         user?.isVerified ? <p>
                             <span className="font-medium">Verified : </span>
@@ -79,11 +69,11 @@ const ProfileManagement = () => {
                     </p>
                     <div className='flex-col flex'>
                         <ChangePasswordModal></ChangePasswordModal>
-                        <UpdateInfoModal></UpdateInfoModal>
+                       
                         <div>
 
                             {
-                                user?.role !== Role.SUPER_ADMIN && user?.role ===Role.DRIVER && user?.role ===Role.RIDER && !myRequest &&
+                                user?.role !== Role.SUPER_ADMIN && user?.role !== Role.DRIVER && user?.role !== Role.RIDER && !myRequest &&
                                 <SendRoleRequestModal></SendRoleRequestModal>
                             }
                             {

@@ -1,27 +1,43 @@
- 
-import Loading from "../Loadin";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Button } from "@/components/ui/button";
 import { CardTitle } from "@/components/ui/card";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"; 
-import type { IBooking } from "@/types";  
-import { useGetMyPostBookingQuery } from "@/redux/features/booking/booking.api";  
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useDeleteBookingMutation, useGetMyBookingQuery } from "@/redux/features/booking/booking.api";
+import type { IBooking } from "@/types";
+import { FcCancel } from "react-icons/fc";
+import Loading from "../Loadin";
+import DeleteConfirmation from "@/components/modules/DeleteConfirmation";
+import toast from "react-hot-toast";
 import { TbCurrencyTaka } from "react-icons/tb";
-import { BookingStatusUpdateModal } from "@/components/modules/BookingStatusUpdateModal";
 
+ 
+const MyBookings = () => {
 
-const IncomingDriverRequests = () => { 
+    const {data, isLoading} = useGetMyBookingQuery() 
+    const MyBooking = data?.data
+    const [deleteBooking] = useDeleteBookingMutation()
 
-    const { data, isLoading } = useGetMyPostBookingQuery();
-    const myDriverPostBookings = data?.data  
+    const handleCancelBooking = async  (id : string) =>{
+        try {
+            const result = await deleteBooking({id}).unwrap()
+            if(result.success){
+                toast.success('booking cancel successful.')
+            } 
+        } catch (error: any) {
+            if(error){
+                toast.error(error?.data?.message)
+            } 
+        } 
+    }
 
-     
-    if (isLoading) {
+    if(isLoading){
         return <Loading></Loading>
     }
 
     return (
-        <div className="mb-10 w-full max-w-7xl mx-auto px-5">
+         <div className="mb-10 w-full max-w-7xl mx-auto px-5">
             <div className="my-5">
-                <CardTitle className="flex items-center"><span className="mr-2"> ||</span> <span>Incoming All Rider Request</span></CardTitle>
+                <CardTitle className="flex items-center"><span className="mr-2"> ||</span> <span> My All Booking Request</span></CardTitle>
             </div>
             <Table>
                 <TableHeader>
@@ -32,7 +48,7 @@ const IncomingDriverRequests = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        myDriverPostBookings?.map((item : IBooking, idx:string) => <TableRow key={idx}>
+                        MyBooking?.map((item : IBooking, idx:string) => <TableRow key={idx}>
                             <TableCell className="space-y-2">
                                 <p><span className="font-medium">Title :{" "}</span>{item?.title}</p>
                                 <p><span className="font-medium">From :{" "}</span>{item?.from}</p>
@@ -44,8 +60,10 @@ const IncomingDriverRequests = () => {
                                 <p className="flex"><span className="font-medium">Transporter Email :{" "}</span><span className="flex items-center mx-1">{item?.transporterEmail}</span></p>
                                 <p><span className="font-medium">Booking Status :{" "}</span>{item?.bookingStatus}</p>
                             </TableCell>
-                            <TableCell className="flex justify-end"> 
-                                 <BookingStatusUpdateModal id={item?._id}></BookingStatusUpdateModal> 
+                            <TableCell className="flex justify-end">  
+                                <DeleteConfirmation onConfirm={()=>handleCancelBooking(item?._id)}>
+                                    <Button variant="outline" className="w-fit flex items-center justify-center gap-1 text-red-600"><span>Cancel</span><FcCancel /></Button>  
+                                </DeleteConfirmation> 
                             </TableCell>
                         </TableRow>)
                     }
@@ -55,4 +73,4 @@ const IncomingDriverRequests = () => {
     );
 };
 
-export default IncomingDriverRequests;
+export default MyBookings;

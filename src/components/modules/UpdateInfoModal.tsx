@@ -17,14 +17,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod"
 import { useUpdateInfoMutation, useUserInfoQuery } from "@/redux/features/auth/auth.api"
 import {useState } from "react"
+import toast from "react-hot-toast"
 
 
 
 
 const updateInfoSchema = z.object({
-    name: z.string(),
-    phone: z.string(),
-    address: z.string()
+    name: z.string(), 
 })
 
 
@@ -39,9 +38,7 @@ export function UpdateInfoModal() {
     const form = useForm<z.infer<typeof updateInfoSchema>>({
         resolver: zodResolver(updateInfoSchema),
         defaultValues: {
-            name: user?.name || "",
-            phone: user?.phone || "",
-            address: user?.address || "",
+            name: user?.name || "", 
         },
     }) 
     
@@ -52,19 +49,20 @@ export function UpdateInfoModal() {
             return
         }
         // const toastId = toast.loading("login...")
-        const userInfo = {
-            name: value.name,
-            phone: value.phone,
-            address: value.address
-        }
+        // const userInfo = {
+            const name= value.name
+        // }
         try {
-            const result = await updateInfo({ id, userInfo }).unwrap()
+            const result = await updateInfo({ id, name }).unwrap()
+            if(result.success){
+                toast.success('updated successfully')
+                setOpen(false);
+            }
             console.log(result);
         } catch (error) {
             console.log('update failed',error);
         }
-        console.log(userInfo);
-        setOpen(false);
+        // console.log(userInfo);
 
     }
 
@@ -72,7 +70,7 @@ export function UpdateInfoModal() {
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant="link" className="text-sm w-fit p-0 text-red-500 hover:text-red-400 flex gap-1 cursor-pointer">
-                    <span>Edit Your Info</span>
+                     
                     <LuPencilLine />
                 </Button>
             </DialogTrigger>
@@ -100,7 +98,7 @@ export function UpdateInfoModal() {
                             )}
                         />
 
-                        <FormField
+                        {/* <FormField
                             control={form.control}
                             name="phone"
                             render={({ field }) => (
@@ -112,9 +110,9 @@ export function UpdateInfoModal() {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
+                        /> */}
 
-                        <FormField
+                        {/* <FormField
                             control={form.control}
                             name="address"
                             render={({ field }) => (
@@ -126,7 +124,7 @@ export function UpdateInfoModal() {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
+                        /> */}
                     </form>
                 </Form>
 

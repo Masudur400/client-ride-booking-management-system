@@ -7,8 +7,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
-import { useGetMyRiderPostQuery, useRemoveRiderMutation } from "@/redux/features/ride/ride.api";
+} from "@/components/ui/table" 
 import type { IRider } from "@/types";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { MdDeleteForever } from "react-icons/md";
@@ -23,25 +22,26 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination"
 import { useState } from "react";
+import { useGetMyDriverPostQuery, useRemoveDriverMutation } from "@/redux/features/drive/driver.api";
 
 
 
 
-const RiderTable = () => {
+const DriverTable = () => {
     const [currentPage, setCurrentPage] = useState(1); 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [limit, setLimit] = useState(10);
 
 
-    const { data, isLoading } = useGetMyRiderPostQuery({page: currentPage, limit})
+    const { data, isLoading } = useGetMyDriverPostQuery({page: currentPage, limit})
     const MyRiderPosts = data?.data?.data
-    const [removeRider] = useRemoveRiderMutation()
+    const [removeDriver] = useRemoveDriverMutation()
     const totalPage = data?.data?.meta?.totalPage || 1; 
 
-    const handleRemoveRider = async (id: string) => {
+    const handleRemoveDriver = async (id: string) => {
         const toastId = toast.loading('removing...')
         try {
-            const result = await removeRider(id).unwrap()
+            const result = await removeDriver(id).unwrap()
             if (result.success) {
                 toast.success('Remove post successfully.', { id: toastId })
             }
@@ -77,7 +77,7 @@ const RiderTable = () => {
                                 <p className="flex"><span className="font-medium">Amount :{" "}</span><span className="flex items-center mx-1">{item?.amount} <TbCurrencyTaka className="text-[15px]" /></span></p>
                             </TableCell>
                             <TableCell className="flex justify-end">
-                                <DeleteConfirmation onConfirm={() => handleRemoveRider(item?._id)}>
+                                <DeleteConfirmation onConfirm={() => handleRemoveDriver(item?._id)}>
                                     <Button variant="destructive" className="w-fit"><MdDeleteForever /></Button>
                                 </DeleteConfirmation> 
                             </TableCell>
@@ -132,4 +132,4 @@ const RiderTable = () => {
     );
 };
 
-export default RiderTable;
+export default DriverTable;
