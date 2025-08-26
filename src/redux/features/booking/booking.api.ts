@@ -8,7 +8,15 @@ import { baseApi } from "@/redux/baseApi"
 
 const bookingApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        //    only get rider 
+        createBooking: builder.mutation({
+    query: ({ postId }: { postId: string }) => ({
+        url: '/booking/create',
+        method: 'POST',
+        data: { postId },  // ✅ এখানে data use করতে হবে
+    }),
+    invalidatesTags: ['BOOKING'],
+}),
+        //    only get rider/driver
         getMyPostBooking: builder.query<any, void>({
             query: () => ({
                 url: '/booking/my-posts/bookings',
@@ -16,7 +24,7 @@ const bookingApi = baseApi.injectEndpoints({
             }),
             providesTags: ['BOOKING'],
         }),
-        //    only rider can update 
+        //    only rider/driver can update 
         updateBookingStatus: builder.mutation({
             query: ({ id, bookingStatus }) => ({
                 url: `/booking/update-status/${id}`,
@@ -25,23 +33,6 @@ const bookingApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["BOOKING"],
         }),
-        //    only get driver
-        // getMyDriverPostBooking: builder.query<any, void>({
-        //     query: () => ({
-        //         url: '/booking/my-posts/bookings',
-        //         method: 'GET',
-        //     }),
-        //     providesTags: ['BOOKING'],
-        // }),
-        // //    only driver can update 
-        // updateDriverBookingStatus: builder.mutation({
-        //     query: ({ id, bookingStatus }) => ({
-        //         url: `/booking/update-status/${id}`,
-        //         method: "PATCH",
-        //         data: { bookingStatus },
-        //     }),
-        //     invalidatesTags: ["BOOKING"],
-        // }),
         getMyBooking: builder.query<any, void>({
             query: () => ({
                 url: '/booking/my-bookings',
@@ -64,8 +55,9 @@ const bookingApi = baseApi.injectEndpoints({
 
 
 export const {
-   useGetMyPostBookingQuery,
-   useUpdateBookingStatusMutation,
+    useCreateBookingMutation,
+    useGetMyPostBookingQuery,
+    useUpdateBookingStatusMutation,
     useGetMyBookingQuery,
     useDeleteBookingMutation,
 } = bookingApi

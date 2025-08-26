@@ -11,7 +11,8 @@ const UserDeshboard = () => {
     const pendingBookings = dashBoardData?.pendingBookings
     const cancelledBookings = dashBoardData?.cancelledBookings
     const chartData = [
-        { name: "Completed", value: totalBookings },
+        { name: "TotalBooking", value: totalBookings },
+        { name: "Completed", value: completedBookings },
         { name: "Pending", value: pendingBookings },
         { name: "Cancelled", value: cancelledBookings }, 
     ];

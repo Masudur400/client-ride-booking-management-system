@@ -1,4 +1,4 @@
- 
+
 import { baseApi } from "@/redux/baseApi"
 
 
@@ -19,7 +19,14 @@ const rideApi = baseApi.injectEndpoints({
                 method: 'GET',
             }),
             providesTags: ['RIDER'],
-        }), 
+        }),
+        getAllRiderPost: builder.query({
+            query: ({ searchTerm, page, limit }) => ({
+                url: `/rider/all?page=${page}&limit=${limit}${searchTerm ? `&searchTerm=${searchTerm}` : ""}`,
+                method: 'GET',
+            }),
+            providesTags: ['RIDER'],
+        }),
         removeRider: builder.mutation({
             query: (id) => ({
                 url: `/rider/delete/${id}`,
@@ -31,7 +38,7 @@ const rideApi = baseApi.injectEndpoints({
             query: ({ id, postStatus }) => ({
                 url: `/rider/status/${id}`,
                 method: "PATCH",
-                data: postStatus,
+                data: {postStatus},
             }),
             invalidatesTags: ["RIDER"],
         }),
@@ -45,5 +52,7 @@ const rideApi = baseApi.injectEndpoints({
 export const {
     useCreateRideMutation,
     useGetMyRiderPostQuery,
-    useRemoveRiderMutation, 
+    useRemoveRiderMutation,
+    useGetAllRiderPostQuery,
+    useUpdateRiderPostMutation
 } = rideApi

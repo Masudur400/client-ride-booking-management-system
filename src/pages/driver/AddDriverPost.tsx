@@ -45,96 +45,81 @@ export function AddDriverPost({
             to: '',
             amount: 0
 
-            // "title": "Office Commuting to Motijheel",
-            // "from": "Uttara",
-            // "to": "Motijheel",
-            // "amount": 250
-
-
-
-            // "title": "Ride to University Campus",
-            // "from": "Dhanmondi",
-            // "to": "Mirpur",
-            // "amount": 200
-
-
-
-            // "title": "Visit to Doctor's Chamber",
-            // "from": "Bashundhara",
-            // "to": "Gulshan",
-            // "amount": 180
-
-
-
-            // "title": "Weekend Shopping Ride",
-            // "from": "Banani",
-            // "to": "New Market",
-            // "amount": 150
-
-
-
-            // "title": "Quick Business Errand",
-            // "from": "Farmgate",
-            // "to": "Shyamoli",
-            // "amount": 170
-
-
-
-            // "title": "Family Visit to Baridhara",
-            // "from": "Mohakhali",
-            // "to": "Baridhara",
-            // "amount": 220
-
-            // "title": "Morning Office Drop",
-            // "from": "Mirpur 10",
-            // "to": "Kawran Bazar",
-            // "amount": 200
-
-            // "title": "Evening Ride to Airport",
-            // "from": "Gulshan",
-            // "to": "Hazrat Shahjalal Airport",
-            // "amount": 300
-
-            // "title": "Ride to Coaching Center",
-            // "from": "Rampura",
-            // "to": "Malibagh",
-            // "amount": 120
-
-            // "title": "Visiting Relatives",
-            // "from": "Shantinagar",
-            // "to": "Khilgaon",
-            // "amount": 140
-
-            // "title": "Daily Market Trip",
-            // "from": "Mohammadpur",
-            // "to": "Karwan Bazar",
-            // "amount": 160
-
-            // "title": "University Ride",
-            // "from": "Jatrabari",
-            // "to": "Dhanmondi",
-            // "amount": 220
-
-            // "title": "Office Commuting Evening",
-            // "from": "Banani",
-            // "to": "Motijheel",
-            // "amount": 260
-
-            // "title": "Shopping at Bashundhara City",
-            // "from": "Mohakhali",
-            // "to": "Panthapath",
-            // "amount": 150
-
-            // "title": "Ride to Old Dhaka",
-            // "from": "Farmgate",
-            // "to": "Chawk Bazar",
-            // "amount": 200
-
-            // "title": "Night Ride Home",
-            // "from": "New Market",
-            // "to": "Mirpur 2",
-            // "amount": 180
-
+             
+    // "title": "Morning Office Ride",
+    // "from": "Uttara",
+    // "to": "Motijheel",
+    // "amount": 250
+   
+    // "title": "Ride to University",
+    // "from": "Dhanmondi",
+    // "to": "Mirpur 10",
+    // "amount": 200
+   
+    // "title": "Airport Drop Service",
+    // "from": "Gulshan",
+    // "to": "Hazrat Shahjalal Airport",
+    // "amount": 300
+ 
+    // "title": "Evening Market Ride",
+    // "from": "Mohammadpur",
+    // "to": "Karwan Bazar",
+    // "amount": 150
+   
+    // "title": "Quick Business Trip",
+    // "from": "Farmgate",
+    // "to": "Shyamoli",
+    // "amount": 180
+  
+    // "title": "Family Ride to Baridhara",
+    // "from": "Mohakhali",
+    // "to": "Baridhara",
+    // "amount": 220
+   
+    // "title": "Daily Office Commuting",
+    // "from": "Banani",
+    // "to": "Motijheel",
+    // "amount": 260
+   
+    // "title": "Evening University Ride",
+    // "from": "Jatrabari",
+    // "to": "Dhanmondi",
+    // "amount": 210
+   
+    // "title": "Shopping Ride",
+    // "from": "New Market",
+    // "to": "Bashundhara City",
+    // "amount": 170
+  
+    // "title": "Coaching Center Drop",
+    // "from": "Rampura",
+    // "to": "Malibagh",
+    // "amount": 120
+   
+    // "title": "Visiting Old Dhaka",
+    // "from": "Farmgate",
+    // "to": "Chawk Bazar",
+    // "amount": 200
+   
+    // "title": "Night Ride to Mirpur",
+    // "from": "Panthapath",
+    // "to": "Mirpur 2",
+    // "amount": 190
+   
+    // "title": "Evening Airport Pickup",
+    // "from": "Khilgaon",
+    // "to": "Hazrat Shahjalal Airport",
+    // "amount": 320
+   
+    // "title": "Weekend Family Trip",
+    // "from": "Banani",
+    // "to": "Purbachal",
+    // "amount": 280
+  
+    // "title": "Daily Commuting Ride",
+    // "from": "Shantinagar",
+    // "to": "Motijheel",
+    // "amount": 160 
 
         }
     })

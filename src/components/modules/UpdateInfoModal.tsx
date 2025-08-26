@@ -47,30 +47,23 @@ export function UpdateInfoModal() {
         const id = user?._id
         if (!user?._id) {
             return
-        }
-        // const toastId = toast.loading("login...")
-        // const userInfo = {
-            const name= value.name
-        // }
+        } 
+            const name= value.name 
         try {
             const result = await updateInfo({ id, name }).unwrap()
             if(result.success){
                 toast.success('updated successfully')
                 setOpen(false);
-            }
-            console.log(result);
+            } 
         } catch (error) {
             console.log('update failed',error);
-        }
-        // console.log(userInfo);
-
+        } 
     }
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="link" className="text-sm w-fit p-0 text-red-500 hover:text-red-400 flex gap-1 cursor-pointer">
-                     
+                <Button variant="link" className="text-sm w-fit p-0 text-red-500 hover:text-red-400 flex gap-1 cursor-pointer"> 
                     <LuPencilLine />
                 </Button>
             </DialogTrigger>
@@ -96,35 +89,7 @@ export function UpdateInfoModal() {
                                     <FormMessage />
                                 </FormItem>
                             )}
-                        />
-
-                        {/* <FormField
-                            control={form.control}
-                            name="phone"
-                            render={({ field }) => (
-                                <FormItem className="space-y-2">
-                                    <FormLabel>Phone</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Phone" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        /> */}
-
-                        {/* <FormField
-                            control={form.control}
-                            name="address"
-                            render={({ field }) => (
-                                <FormItem className="space-y-2">
-                                    <FormLabel>Address</FormLabel>
-                                    <FormControl>
-                                        <Input placeholder="Address" {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        /> */}
+                        /> 
                     </form>
                 </Form>
 

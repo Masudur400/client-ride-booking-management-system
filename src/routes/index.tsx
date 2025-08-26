@@ -1,6 +1,5 @@
 import App from "@/App";
 import DashboardLayOut from "@/components/layout/DashboardLayout";
-import About from "@/pages/About";
 import Home from "@/pages/Home";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
@@ -12,7 +11,10 @@ import { riderSidebarItems } from "./RiderSidebarItems";
 import { userSidebarItems } from "./UserSidebarItems";
 import { withAuth } from "@/utils/withAuth";
 import { Role } from "@/constants/role";
-import type { TRole } from "@/types";  
+import type { TRole } from "@/types";
+import RiderPosts from "@/pages/RiderPosts";
+import Contact from "@/pages/Contact";
+import DriverPosts from "@/pages/DriverPosts";
 
 export const router = createBrowserRouter([
     {
@@ -24,9 +26,17 @@ export const router = createBrowserRouter([
                 Component: Home
             },
             {
-                path: 'about',
-                Component: About
-            }, 
+                path: 'rider-posts',
+                Component: withAuth(RiderPosts, Role.USER as TRole)
+            },
+            {
+                path: 'driver-posts',
+                Component: withAuth(DriverPosts, Role.USER as TRole)
+            },
+            {
+                path: 'contact',
+                Component: Contact
+            }
         ]
     },
     // admin dashboard routes

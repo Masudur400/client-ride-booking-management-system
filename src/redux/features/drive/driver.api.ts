@@ -1,4 +1,4 @@
- 
+
 import { baseApi } from "@/redux/baseApi"
 
 
@@ -19,7 +19,14 @@ const rideApi = baseApi.injectEndpoints({
                 method: 'GET',
             }),
             providesTags: ['DRIVER'],
-        }), 
+        }),
+        getAllDriverPost: builder.query({
+            query: ({ searchTerm, page, limit }) => ({
+                url: `/driver/all?page=${page}&limit=${limit}${searchTerm ? `&searchTerm=${searchTerm}` : ""}`,
+                method: 'GET',
+            }),
+            providesTags: ['DRIVER'],
+        }),
         removeDriver: builder.mutation({
             query: (id) => ({
                 url: `/driver/delete/${id}`,
@@ -27,11 +34,11 @@ const rideApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['DRIVER'],
         }),
-        updateDriverPost: builder.mutation({
+        updateDriverPost:builder.mutation({
             query: ({ id, postStatus }) => ({
-                url: `/deriver/status/${id}`,
+                url: `/driver/status/${id}`,
                 method: "PATCH",
-                data: postStatus,
+                data: {postStatus},
             }),
             invalidatesTags: ["DRIVER"],
         }),
@@ -42,9 +49,10 @@ const rideApi = baseApi.injectEndpoints({
 })
 
 
-export const { 
+export const {
     useCreateDriverMutation,
     useGetMyDriverPostQuery,
     useRemoveDriverMutation,
-    useUpdateDriverPostMutation
+    useUpdateDriverPostMutation,
+    useGetAllDriverPostQuery
 } = rideApi

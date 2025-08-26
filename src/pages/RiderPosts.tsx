@@ -1,9 +1,12 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetAllRiderPostQuery } from "@/redux/features/ride/ride.api";
+import Loading from "./Loadin";
 import { postStatus, type IPost } from "@/types";
 import { Button } from "@/components/ui/button"
-import { 
+import {
+    Card,
+    CardDescription,
+    CardHeader,
     CardTitle,
 } from "@/components/ui/card"
 import { TbCurrencyTaka } from "react-icons/tb";
@@ -15,33 +18,32 @@ import {
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from "@/components/ui/pagination" 
+} from "@/components/ui/pagination"
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import z from "zod"; 
-import Loading from "../Loadin";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";  
-import { RiderPostStatusUpdateModal } from "@/components/modules/RiderPostStatusUpdateModal";
+import z from "zod";
+import { useCreateBookingMutation } from "@/redux/features/booking/booking.api"; 
 
 const searchSchema = z.object({
     search: z.string(),
 });
-const RideOversight = () => {
-    
+const RiderPosts = () => {
+    // const { data, isLoading } = useGetAllRiderPostQuery({ page: currentPage, limit });
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 10;
     const [searchTerm, setSearchTerm] = useState("");
 
-
+     
     const { data, isLoading } = useGetAllRiderPostQuery({ page: currentPage, limit, searchTerm });
     const riderPosts = data?.data || [];
     const totalPage = data?.meta?.totalPage
         ? data.meta.totalPage
         : Math.ceil((data?.meta?.total || 0) / limit);
 
-   
+    // React Hook Form
     const form = useForm<z.infer<typeof searchSchema>>({
         resolver: zodResolver(searchSchema),
         defaultValues: { search: "" },
@@ -56,7 +58,22 @@ const RideOversight = () => {
         if (searchTerm === "") {
             setCurrentPage(1);
         }
-    }, [searchTerm]); 
+    }, [searchTerm]);
+
+
+    const [createBooking] = useCreateBookingMutation();
+
+const handleCreateBooking = async (postId: string) => {
+    try {
+        const res = await createBooking({ postId }).unwrap();
+        if (res.success) {
+            toast.success('Booking created successfully');
+        }
+    } catch (error: any) {
+        toast.error(error?.data?.message || 'Booking failed');
+        console.log(error);
+    }
+};
 
     if (isLoading) {
         return <Loading />
@@ -92,44 +109,33 @@ const RideOversight = () => {
                         </form>
                     </Form>
                 </div>
-            </div> 
-
-            <div className="my-5">
-                <CardTitle className="flex items-center"><span className="mr-2"> ||</span> <span>All Rider Posts</span></CardTitle>
             </div>
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="">Body</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {
-                        riderPosts?.map((item: IPost, idx: string) => <TableRow key={idx}>
-                            <TableCell className="space-y-2">
-                                <p><span className="font-medium">Title :{" "}</span>{item?.title}</p>
-                                <p><span className="font-medium">From :{" "}</span>{item?.from}</p>
-                                <p><span className="font-medium">To :{" "}</span>{item?.to}</p>
-                                <p className="flex"><span className="font-medium">Amount :{" "}</span><span className="flex items-center mx-1">{item?.amount} <TbCurrencyTaka className="text-[15px]" /></span></p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-5 px-5">
+                {riderPosts?.map((post: IPost, idx: number) => (
+                    <Card key={idx} className="w-full max-w-sm">
+                        <CardHeader>
+                            <CardTitle>{post?.title}</CardTitle>
+                            <CardDescription>From: {post?.from}</CardDescription>
+                            <CardDescription>To: {post?.to}</CardDescription>
+                            <CardDescription className="flex items-center gap-1">
+                                Cost: {post?.amount} <TbCurrencyTaka className="text-[15px]" />
+                            </CardDescription>
+                            <CardDescription >
                                 {
-                                    item.postStatus === postStatus.BLOCKED 
-                                    ?<p><span className="font-medium">Status :{" "}</span><span className="text-red-500">{item?.postStatus}</span></p>
-                                    :<p><span className="font-medium">Status :{" "}</span><span className="text-green-600">{item?.postStatus}</span></p>
-                                     
-                                }  
-                                 
-                            </TableCell>
-                            <TableCell className="flex justify-end">
-
-                                <RiderPostStatusUpdateModal id={item?._id}></RiderPostStatusUpdateModal>
-
-                                
-                            </TableCell>
-                        </TableRow>)
-                    }
-                </TableBody>
-            </Table>
+                                    post?.postStatus === postStatus.BLOCKED && <p className="text-red-500">This post has blocked</p>
+                                }
+                            </CardDescription>
+                            <CardDescription className="flex justify-end">
+                                {
+                                    post?.postStatus === postStatus.BLOCKED
+                                        ? <Button onClick={() => toast.error('This post has blocked. You can not book')} className="w-fit">Book Driver</Button>
+                                        : <Button onClick={()=> handleCreateBooking(post?._id)} className="w-fit">Book Rider</Button>
+                                }
+                            </CardDescription>
+                        </CardHeader>
+                    </Card>
+                ))}
+            </div>
 
             {totalPage > 1 && (
                 <div className="flex justify-end mt-4">
@@ -160,4 +166,4 @@ const RideOversight = () => {
     );
 };
 
-export default RideOversight;
+export default RiderPosts;

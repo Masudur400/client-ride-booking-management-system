@@ -19,12 +19,27 @@ const applyApi = baseApi.injectEndpoints({
             }),
             providesTags: ['APPLY']
         }),
+         getAllApply: builder.query({
+            query: () => ({
+                url: '/apply/all-apply',
+                method: 'GET'
+            }),
+            providesTags: ['APPLY']
+        }),
         cancelRequest: builder.mutation({
             query: () => ({
                 url: 'apply/cancel',
                 method: "DELETE",
             }),
             invalidatesTags: ['APPLY'],
+        }),
+       updateApply: builder.mutation({
+            query: ( {id, isApproved} ) => ({
+                url: `/apply/approve/${id}`,
+                method: "PATCH",
+                data: {isApproved},
+            }),
+            invalidatesTags: ["APPLY"],
         }),
         
 
@@ -37,4 +52,6 @@ export const {
     useSendRequestMutation, 
     useMySendRequestQuery,
     useCancelRequestMutation,
+    useUpdateApplyMutation,
+    useGetAllApplyQuery,
 } = applyApi
