@@ -28,9 +28,8 @@ import { useState } from "react";
 
 
 const RiderTable = () => {
-    const [currentPage, setCurrentPage] = useState(1); 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [limit, setLimit] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);  
+    const [limit] = useState(10);
 
 
     const { data, isLoading } = useGetMyRiderPostQuery({page: currentPage, limit})

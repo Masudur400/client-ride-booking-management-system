@@ -1,69 +1,68 @@
-# React + TypeScript + Vite
+# Driver/Rider Booking System 🚗🛵
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🌟 Project Overview
+The **Driver/Rider Booking System** is a modern, full-stack web application built to manage ride bookings efficiently. It provides a seamless platform for users to apply for driver or rider roles, create ride posts, book rides, and manage bookings. The system is designed to be user-friendly and role-based, giving Admins full control over posts, applications, and users.
 
-Currently, two official plugins are available:
+This project is ideal for anyone looking to implement a simple yet functional ride management platform, similar to ride-sharing services like Uber or Pathao, but lightweight and fully customizable.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 👥 User Roles & Permissions
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Rider
+- Browse available driver posts.  
+- Book rides from drivers.  
+- Cancel bookings (with restrictions: cannot cancel if `ACCEPTED`, `PICKED_UP`, `IN_TRANSIT`, or `COMPLETED`).  
+- View booking history.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Driver
+- Create, update, and delete ride posts (includes title, from, to, amount, etc.).  
+- View all bookings made on their posts.  
+- Only users with `DRIVER` role can post rides.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Admin
+- Approve or reject Rider/Driver applications.  
+- Block or unblock ride posts.  
+- Manage users and system content.  
+- Full control over system management.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ⚙️ Features
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Role-based authentication & authorization.  
+- Apply system for Rider/Driver roles with Admin approval.  
+- Driver posts with detailed information.  
+- Booking system with status tracking:
+  - `PENDING`  
+  - `ACCEPTED`  
+  - `PICKED_UP`  
+  - `IN_TRANSIT`  
+  - `COMPLETED`  
+  - `CANCELLED`  
+- Search functionality for posts (by title, from, to).  
+- Admin dashboard for managing applications, posts, and users.  
+- Secure JWT-based authentication.  
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 🛠 Tech Stack
+
+**Frontend:**  
+- React.js + TypeScript  
+- Redux Toolkit + RTK Query  
+- Tailwind CSS  
+- React Router  
+- Axios  
+
+**Backend:**  
+- Node.js + Express.js  
+- MongoDB + Mongoose  
+- JWT Authentication  
+
+**Deployment & Tools:**  
+- Vercel (Frontend)  
+- MongoDB Atlas (Database)  
+
+--- 
+

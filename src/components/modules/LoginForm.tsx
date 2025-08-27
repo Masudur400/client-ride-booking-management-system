@@ -106,8 +106,7 @@ export function LoginForm({
                                     <FormItem>
                                         <FormLabel>Password</FormLabel>
                                         <FormControl>
-                                            <Password {...field}></Password>
-                                            {/* <Input type="password" placeholder="********" {...field} className="my-1"/> */}
+                                            <Password {...field}></Password> 
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

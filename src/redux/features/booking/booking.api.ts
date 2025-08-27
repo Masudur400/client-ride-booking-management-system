@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { baseApi } from "@/redux/baseApi"
-
-
-
-
+import { baseApi } from "@/redux/baseApi" 
 
 const bookingApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -12,7 +7,7 @@ const bookingApi = baseApi.injectEndpoints({
     query: ({ postId }: { postId: string }) => ({
         url: '/booking/create',
         method: 'POST',
-        data: { postId },  // ✅ এখানে data use করতে হবে
+        data: { postId }, 
     }),
     invalidatesTags: ['BOOKING'],
 }),

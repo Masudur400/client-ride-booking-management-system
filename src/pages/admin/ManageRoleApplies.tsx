@@ -52,8 +52,7 @@ const ManageRoleApplies = () => {
                                 <p>This User ({apply?.userData?.name}) Wants to change her role as <span className="font-medium">{apply?.want}</span></p>
                             </TableCell>
                             <TableCell className="flex justify-end">
-                                <Button disabled={apply?.isApproved} onClick={() => handleApproved(apply?._id)} variant={"outline"} className="text-green-500 border border-green-500"><GiConfirmed /></Button>
-                                {/* <UpdateUserRoleModal id={String(user?._id)}></UpdateUserRoleModal> */}
+                                <Button disabled={apply?.isApproved} onClick={() => handleApproved(apply?._id)} variant={"outline"} className="text-green-500 border border-green-500"><GiConfirmed /></Button> 
                             </TableCell>
                         </TableRow>)
                     }

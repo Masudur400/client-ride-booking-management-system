@@ -135,6 +135,7 @@ export function AddDriverPost({
             const result = await createDriver(createData).unwrap();
             if (result.success) {
                 toast.success("post created successfully");
+                form.reset();
             }
         } catch (error: any) {
             if (error) {
@@ -217,12 +218,9 @@ export function AddDriverPost({
                         </form>
                     </Form>
                 </CardContent>
-            </Card>
+            </Card> 
 
-
-           <DriverTable></DriverTable>
-
-
+           <DriverTable></DriverTable> 
 
         </div>
     )

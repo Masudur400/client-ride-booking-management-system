@@ -12,9 +12,9 @@ import { userSidebarItems } from "./UserSidebarItems";
 import { withAuth } from "@/utils/withAuth";
 import { Role } from "@/constants/role";
 import type { TRole } from "@/types";
-import RiderPosts from "@/pages/RiderPosts";
-import Contact from "@/pages/Contact";
+import RiderPosts from "@/pages/RiderPosts"; 
 import DriverPosts from "@/pages/DriverPosts";
+import { Contact } from "@/pages/Contact";
 
 export const router = createBrowserRouter([
     {

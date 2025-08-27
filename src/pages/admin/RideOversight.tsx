@@ -115,16 +115,12 @@ const RideOversight = () => {
                                 {
                                     item.postStatus === postStatus.BLOCKED 
                                     ?<p><span className="font-medium">Status :{" "}</span><span className="text-red-500">{item?.postStatus}</span></p>
-                                    :<p><span className="font-medium">Status :{" "}</span><span className="text-green-600">{item?.postStatus}</span></p>
-                                     
+                                    :<p><span className="font-medium">Status :{" "}</span><span className="text-green-600">{item?.postStatus}</span></p> 
                                 }  
-                                 
                             </TableCell>
                             <TableCell className="flex justify-end">
 
-                                <RiderPostStatusUpdateModal id={item?._id}></RiderPostStatusUpdateModal>
-
-                                
+                                <RiderPostStatusUpdateModal id={item?._id}></RiderPostStatusUpdateModal> 
                             </TableCell>
                         </TableRow>)
                     }

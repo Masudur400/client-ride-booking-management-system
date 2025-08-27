@@ -149,6 +149,7 @@ export function AddRiderPost({
             const result = await createRider(createData).unwrap();
             if (result.success) {
                 toast.success("post created successfully");
+                form.reset();
             }
         } catch (error: any) {
             if (error) {
@@ -231,12 +232,9 @@ export function AddRiderPost({
                         </form>
                     </Form>
                 </CardContent>
-            </Card>
+            </Card> 
 
-
-            <RiderTable></RiderTable>
-
-
+            <RiderTable></RiderTable> 
 
         </div>
     )

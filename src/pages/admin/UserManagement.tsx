@@ -9,9 +9,7 @@ import { UpdateUserRoleModal } from "@/components/modules/UpdateUserRoleModal";
 const UserManagement = () => {
 
     const {data, isLoading} = useGetAllUserQuery(undefined)
-    const allUsers = data?.data
-    // console.log(allUsers);
-    // console.log(data?.meta);
+    const allUsers = data?.data 
 
 
     if(isLoading){

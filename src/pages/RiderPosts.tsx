@@ -26,6 +26,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import z from "zod";
 import { useCreateBookingMutation } from "@/redux/features/booking/booking.api"; 
+import img from '../assets/images/map.jpg'
 
 const searchSchema = z.object({
     search: z.string(),
@@ -114,6 +115,7 @@ const handleCreateBooking = async (postId: string) => {
                 {riderPosts?.map((post: IPost, idx: number) => (
                     <Card key={idx} className="w-full max-w-sm">
                         <CardHeader>
+                            <img src={img} alt="image" className="rounded-md h-40 w-full mb-2" />
                             <CardTitle>{post?.title}</CardTitle>
                             <CardDescription>From: {post?.from}</CardDescription>
                             <CardDescription>To: {post?.to}</CardDescription>

@@ -21,6 +21,7 @@ import z from "zod";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useCreateBookingMutation } from "@/redux/features/booking/booking.api";
+import img from '../assets/images/map-1.jpg'
 
 const searchSchema = z.object({
     search: z.string(),
@@ -109,6 +110,7 @@ const DriverPosts = () => {
                 {driverPosts.map((post: IPost, idx: number) => (
                     <Card key={idx} className="w-full max-w-sm">
                         <CardHeader>
+                            <img src={img} alt="image" className="rounded-md h-40 w-full mb-2" />
                             <CardTitle>{post.title}</CardTitle>
                             <CardDescription>From: {post.from}</CardDescription>
                             <CardDescription>To: {post.to}</CardDescription>
