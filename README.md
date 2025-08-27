@@ -61,8 +61,8 @@ This project is ideal for anyone looking to implement a simple yet functional ri
 - JWT Authentication  
 
 **Deployment & Tools:**  
-- Vercel (Frontend)  
-- MongoDB Atlas (Database)  
+- Vercel ([Frontend](https://client-ride-booking-management-syst.vercel.app))  
+- MongoDB Atlas ([Database](https://bakend-ride-booking-system.vercel.app/api))  
 
 --- 
 
