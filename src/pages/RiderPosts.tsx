@@ -25,20 +25,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import z from "zod";
-import { useCreateBookingMutation } from "@/redux/features/booking/booking.api"; 
+import { useCreateBookingMutation } from "@/redux/features/booking/booking.api";
 import img from '../assets/images/map.jpg'
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 const searchSchema = z.object({
     search: z.string(),
 });
 const RiderPosts = () => {
-    // const { data, isLoading } = useGetAllRiderPostQuery({ page: currentPage, limit });
+    const { data: user, isLoading: userLoading } = useUserInfoQuery(undefined);
+    const me = user?.data
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 10;
     const [searchTerm, setSearchTerm] = useState("");
 
-     
-    const { data, isLoading } = useGetAllRiderPostQuery({ page: currentPage, limit, searchTerm });
+
+    const { data, isLoading: riderLoading } = useGetAllRiderPostQuery({ page: currentPage, limit, searchTerm });
     const riderPosts = data?.data || [];
     const totalPage = data?.meta?.totalPage
         ? data.meta.totalPage
@@ -64,19 +66,19 @@ const RiderPosts = () => {
 
     const [createBooking] = useCreateBookingMutation();
 
-const handleCreateBooking = async (postId: string) => {
-    try {
-        const res = await createBooking({ postId }).unwrap();
-        if (res.success) {
-            toast.success('Booking created successfully');
+    const handleCreateBooking = async (postId: string) => {
+        try {
+            const res = await createBooking({ postId }).unwrap();
+            if (res.success) {
+                toast.success('Booking created successfully');
+            }
+        } catch (error: any) {
+            toast.error(error?.data?.message || 'Booking failed');
+            console.log(error);
         }
-    } catch (error: any) {
-        toast.error(error?.data?.message || 'Booking failed');
-        console.log(error);
-    }
-};
+    };
 
-    if (isLoading) {
+    if (userLoading || riderLoading) {
         return <Loading />
     }
 
@@ -131,7 +133,13 @@ const handleCreateBooking = async (postId: string) => {
                                 {
                                     post?.postStatus === postStatus.BLOCKED
                                         ? <Button onClick={() => toast.error('This post has blocked. You can not book')} className="w-fit">Book Driver</Button>
-                                        : <Button onClick={()=> handleCreateBooking(post?._id)} className="w-fit">Book Rider</Button>
+                                        : <>
+                                            {
+                                                me ?
+                                                    <Button onClick={() => handleCreateBooking(post?._id)} className="w-fit">Book Rider</Button>
+                                                    : <Button onClick={() => toast.error('After login you can book.')} className="w-fit">Book Rider</Button>
+                                            }
+                                        </>
                                 }
                             </CardDescription>
                         </CardHeader>

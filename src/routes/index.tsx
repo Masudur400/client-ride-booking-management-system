@@ -15,6 +15,8 @@ import type { TRole } from "@/types";
 import RiderPosts from "@/pages/RiderPosts"; 
 import DriverPosts from "@/pages/DriverPosts";
 import { Contact } from "@/pages/Contact";
+import TermsAndConditions from "@/pages/TermsAndConditions";
+import PrivacyAndPolicy from "@/pages/PrivacyAndPolicy";
 
 export const router = createBrowserRouter([
     {
@@ -27,16 +29,24 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'rider-posts',
-                Component: withAuth(RiderPosts, Role.USER as TRole)
+                Component:  RiderPosts 
             },
             {
                 path: 'driver-posts',
-                Component: withAuth(DriverPosts, Role.USER as TRole)
+                Component: DriverPosts 
+            },
+            {
+                path: 'terms-and-conditions',
+                Component:  TermsAndConditions
+            },
+            {
+                path: 'privacy-policy',
+                Component: PrivacyAndPolicy
             },
             {
                 path: 'contact',
                 Component: Contact
-            }
+            },
         ]
     },
     // admin dashboard routes

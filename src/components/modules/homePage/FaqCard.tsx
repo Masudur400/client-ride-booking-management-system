@@ -3,7 +3,7 @@ import img from '../../../assets/images/faq-bg.png'
 
 export default function FaqCard() {
   return (
-    <div className="my-5 relative min-h-screen py-16 px-6 flex items-center justify-center">
+    <div className="my-5 relative  h-[500px] py-16 px-6 flex items-center justify-center">
       {/* Background Image */}
       <img 
         src={img} 

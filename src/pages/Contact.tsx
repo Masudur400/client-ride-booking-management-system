@@ -17,9 +17,7 @@ import { useSendContactMailMutation } from "@/redux/features/conatct/contact.api
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import toast from "react-hot-toast";
 import img from '../assets/images/home-bg.jpeg'
-import Logo from "@/assets/icons/Logo";
-import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
-
+import Logo from "@/assets/icons/Logo"; 
 const contactSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
     email: z.email({ message: "Invalid email" }),
@@ -28,9 +26,7 @@ const contactSchema = z.object({
 });
 
 export function Contact({ className, ...props }: React.ComponentProps<"div">) {
-    const [sendContactMail] = useSendContactMailMutation()
-    const { data } = useUserInfoQuery(undefined)
-    const user = data?.data
+    const [sendContactMail] = useSendContactMailMutation() 
 
     const form = useForm<z.infer<typeof contactSchema>>({
         resolver: zodResolver(contactSchema),
@@ -42,11 +38,19 @@ export function Contact({ className, ...props }: React.ComponentProps<"div">) {
         },
     });
 
-    const onSubmit = async (data: z.infer<typeof contactSchema>) => {
+    const onSubmit = async (message: z.infer<typeof contactSchema>) => {
+
+        const data = {
+            name: message.name,
+            email: message.email,
+            subject: message.subject,
+            message: `[From Rider/Driver Booking System] ${message.message}`
+        }
         try {
+            const toastId = toast.loading('Mail sending...')
             const result = await sendContactMail(data).unwrap();
             if (result.success) {
-                toast.success('Mail sent.')
+                toast.success('Mail sent.', { id: toastId })
                 form.reset();
             }
         } catch (error: any) {
@@ -56,7 +60,7 @@ export function Contact({ className, ...props }: React.ComponentProps<"div">) {
         }
     };
 
-    return ( 
+    return (
         <div
             className={cn(
                 "relative flex flex-col items-center justify-center min-h-screen",
@@ -137,12 +141,7 @@ export function Contact({ className, ...props }: React.ComponentProps<"div">) {
                                     </FormItem>
                                 )}
                             />
-                            {
-                                user
-                                    ? <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-md">Send Message</Button>
-                                    : <Button
-                                    onClick={()=>toast.error('Please Login.')} type="button" className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-md"> Send Message </Button>
-                            }
+                             <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-md">Send Message</Button>
                         </form>
                     </Form>
                 </CardContent>

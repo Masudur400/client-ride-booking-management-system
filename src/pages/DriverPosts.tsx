@@ -22,12 +22,15 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useCreateBookingMutation } from "@/redux/features/booking/booking.api";
 import img from '../assets/images/map-1.jpg'
+import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 
 const searchSchema = z.object({
     search: z.string(),
 });
 
 const DriverPosts = () => {
+    const { data: user, isLoading: userLoading } = useUserInfoQuery(undefined);
+        const me = user?.data
     const [currentPage, setCurrentPage] = useState(1);
     const limit = 10;
     const [searchTerm, setSearchTerm] = useState("");
@@ -72,7 +75,7 @@ const DriverPosts = () => {
         }
     };
 
-    if (isLoading) return <Loading />;
+    if (isLoading || userLoading) return <Loading />;
 
     return (
         <div>
@@ -126,7 +129,12 @@ const DriverPosts = () => {
                                 {
                                     post?.postStatus === postStatus.BLOCKED
                                         ? <Button onClick={() => toast.error('This post has blocked. You can not book')} className="w-fit">Book Driver</Button>
-                                        : <Button onClick={() => handleCreateBooking(post?._id)} className="w-fit">Book Driver</Button>
+                                        :<>
+                                        {
+                                            me ?  <Button onClick={() => handleCreateBooking(post?._id)} className="w-fit">Book Driver</Button>
+                                            :  <Button onClick={() => toast.error('After Login you can book.')} className="w-fit">Book Driver</Button>
+                                        }
+                                        </>
                                 }
                             </CardDescription>
                         </CardHeader>
